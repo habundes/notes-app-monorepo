@@ -1,0 +1,7 @@
+PUT http://localhost:3001/api/notes/6487881a74814e424ea8a7f6
+Content-Type: application/json
+
+{
+    "content": "Like and subscribe",
+    "important": true
+}

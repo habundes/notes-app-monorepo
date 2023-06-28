@@ -1,0 +1,33 @@
+{
+  "name": "note-app",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "workspaces":[
+    "api",
+    "app"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build --workspaces=app",
+    "start": "npm run start --workspaces=api",
+    "dev:api": "npm run build & npm run dev --workspaces=api"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "eslintConfig": {
+    "extends": "./node_modules/standard/eslintrc.json",
+    "env": {
+      "cypress/globals": true,
+      "jest": true
+    },
+    "plugins": [
+      "cypress"
+    ]
+  },
+  "devDependencies": {
+    "eslint-plugin-cypress": "2.13.3",
+    "standard": "17.1.0"
+  }
+}

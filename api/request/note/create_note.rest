@@ -1,0 +1,15 @@
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODhlNDg0MTg1YzhhNGM3NDBlYWI4YyIsInVzZXJuYW1lIjoiaGFidW5kZXMiLCJpYXQiOjE2ODY3NzQ5MzIsImV4cCI6MTY4NjgwMDEzMn0.bZ_jdxLJmoVcbj_BK-mjYmBomTmkzkJSE5Hy0xXEVBw
+
+{
+    "content": "Note created with Token 7",
+    "important": true
+}
+
+###
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+
+{
+}
