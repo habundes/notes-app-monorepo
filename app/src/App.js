@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 
 import { Note } from './components/Note'
-import { createNote, getAllNotes, setToken } from './services/notes'
+import { createNote, getAllNotes, setToken, updateNote, deleteNote } from './services/notes'
 import { loginService } from './services/login'
 import { Notification } from './components/Notification'
 import { LoginForm } from './components/LoginForm'
@@ -74,7 +74,33 @@ function App () {
 
   const toggleImportant = (id) => {
     const note = notes.find(note => note.id === id)
-    console.log(note)
+    const noteUp = {
+      ...note,
+      important: !note.important
+    }
+    updateNote(noteUp)
+      .then((noteUpdated) => {
+        setNotes(notes.map(n => n.id !== id ? n : noteUpdated))
+      })
+      .catch(() => {
+        setErrorMessage(`Unable to update Note ${note.content}`)
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+      })
+  }
+
+  const handleRemoveNote = (id) => {
+    deleteNote(id)
+      .then(() => {
+        setNotes(notes.filter(n => n.id !== id))
+      })
+      .catch(() => {
+        setErrorMessage('Unable to delete Note')
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+      })
   }
 
   return (
@@ -83,8 +109,22 @@ function App () {
       <Notification message={errorMessage} />
 
       {user
-        ? <NoteForm onAddNote={addNote} onLogout={handleLogout} />
-
+        ? (
+          <section>
+            <NoteForm onAddNote={addNote} onLogout={handleLogout} />
+            <ul>
+              {
+                notes.map((note) =>
+                  <Note
+                    key={note.id}
+                    note={note}
+                    onToggle={toggleImportant}
+                    onDelete={handleRemoveNote}
+                  />)
+              }
+            </ul>
+          </section>
+          )
         : <LoginForm
             username={username}
             password={password}
@@ -92,16 +132,7 @@ function App () {
             onPasswordChanged={({ target }) => setPassword(target.value)}
             onSubmitLogin={handleLogin}
           />}
-      <ul>
-        {
-          notes.map((note) =>
-            <Note
-              key={note.id}
-              note={note}
-              onToggle={toggleImportant}
-            />)
-        }
-      </ul>
+
     </div>
   )
 }

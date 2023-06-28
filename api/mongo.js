@@ -5,12 +5,12 @@ const uri = NODE_ENV === 'test' ? MONGO_DB_URI_TEST : MONGO_DB_URI
 
 // connection to mongoose]
 mongoose.connect(uri)
-    .then(() => {
-        console.log('Data base connected')
-    })
-    .catch(err => {
-        console.error(err)
-    })
+  .then(() => {
+    console.log('Data base connected')
+  })
+  .catch(err => {
+    console.error(err)
+  })
 
 // process.on('uncaughtException', (err) => {
 //     console.error('MongoDB Error: ', err);
