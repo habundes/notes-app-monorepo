@@ -1,1 +1,1 @@
-# react-node-bootcamp
+# react-node-notes
